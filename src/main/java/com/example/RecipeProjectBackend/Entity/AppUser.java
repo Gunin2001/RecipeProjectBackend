@@ -1,6 +1,7 @@
 package com.example.RecipeProjectBackend.Entity;
 
 import com.example.RecipeProjectBackend.Enums.AppUserRole;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,10 +10,10 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Collections;
-
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -41,6 +42,13 @@ public class AppUser implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled = false;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_recipes",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id")
+    )
+    private Set<Recipe> recipes = new HashSet<>();
 
     public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
         this.firstName = firstName;

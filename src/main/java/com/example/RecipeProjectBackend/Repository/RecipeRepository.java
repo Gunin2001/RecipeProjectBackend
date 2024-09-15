@@ -1,17 +1,17 @@
 package com.example.RecipeProjectBackend.Repository;
 
-import com.example.RecipeProjectBackend.Entity.AppUser;
-import com.example.RecipeProjectBackend.Entity.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.RecipeProjectBackend.Entity.Recipe;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
-    @Override
-    Optional<Recipe> findById(Long aLong);
+    // Custom query to find recipes by user ID
+    @Query("SELECT r FROM Recipe r JOIN r.users u WHERE u.id = :userId")
+    List<Recipe> findAllByUserId(@Param("userId") Long userId);
 }
