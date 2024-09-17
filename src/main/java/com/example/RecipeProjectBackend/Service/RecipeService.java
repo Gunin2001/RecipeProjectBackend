@@ -6,6 +6,8 @@ import com.example.RecipeProjectBackend.Repository.AppUserRepository;
 import com.example.RecipeProjectBackend.Repository.RecipeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -15,8 +17,9 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final AppUserRepository appUserRepository;
 
-    // Save a recipe added by a user
+    @Transactional
     public Recipe saveRecipeForUser(Recipe recipe, Long userId) {
+        // Save the recipe
         Recipe savedRecipe = recipeRepository.save(recipe);
 
         // Find the user by ID
@@ -30,10 +33,12 @@ public class RecipeService {
         // Save the user to update the association
         appUserRepository.save(user);
 
+        // Save the recipe to update the association in the Recipe entity as well
+        recipeRepository.save(savedRecipe);
+
         return savedRecipe;
     }
 
-    // Fetch all recipes allotted to a specific user
     public List<Recipe> getAllRecipesByUser(Long userId) {
         return recipeRepository.findAllByUserId(userId);
     }
