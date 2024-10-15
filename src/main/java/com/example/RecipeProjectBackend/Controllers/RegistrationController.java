@@ -6,9 +6,7 @@ import com.example.RecipeProjectBackend.Service.RegistrationService;
 import com.example.RecipeProjectBackend.response.BaseResponse;
 import com.example.RecipeProjectBackend.response.RegistrationResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import org.eclipse.angus.mail.iap.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
 
     private RegistrationService registrationService;
-    private ObjectMapper mapper;
+
     @PostMapping
     public ResponseEntity<BaseResponse> register(@RequestBody RegistrationRequest request) throws JsonProcessingException {
 

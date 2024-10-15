@@ -1,6 +1,7 @@
 package com.example.RecipeProjectBackend.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Recipe {
     @Column(length = 500)
     private String description;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "recipes")
     private Set<AppUser> users = new HashSet<>();
 

@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-db-server:5432/registration
+    username: prod_username
+    password: prod_password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  mail:
+    host: smtp.yourmailserver.com
+    port: 587
+    username: prod_mail_username
+    password: prod_mail_password
