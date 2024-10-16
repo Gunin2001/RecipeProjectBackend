@@ -33,8 +33,6 @@ public class Token {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
-    @Column(nullable = false)
-    private LocalDateTime expiresAt;
 
     private LocalDateTime confirmedAt;
 
@@ -47,5 +45,5 @@ public class Token {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    public AppUser user;
+    public AppUser appUser;
 }
